@@ -23,6 +23,10 @@ public class CustomDeer : MonoBehaviour {
 		{
 			print ("playuer here");
 			deer.SetActive(true);
+			
+			var player = GameObject.Find("Player");
+			var state = player.GetComponent<CharacterState>();
+			state.perma_tripping();
 		}
 	}
 }

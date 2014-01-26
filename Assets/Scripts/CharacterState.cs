@@ -23,6 +23,10 @@ public class CharacterState : MonoBehaviour {
 	public float berried_duration = 0.0f;
 	public float trippin_duration = 0.0f;
 	public float huffin_duration = 0.0f;
+
+	public AudioClip berried_clip;
+	public AudioClip trippin_clip;
+	public AudioClip huffin_clip;
 	
 	public Rect position;
 	public Texture2D jar_tex;
@@ -43,7 +47,10 @@ public class CharacterState : MonoBehaviour {
 			is_berried = value;
 			InvokeStateSender(OnBerried, value);
 			if(value)
+			{
 				berried_duration = max_berried_duration;
+				playAudioClip(berried_clip);
+			}
 		}
 	}
 	public bool Trippin
@@ -57,6 +64,7 @@ public class CharacterState : MonoBehaviour {
 			if(value)
 			{
 				trippin_duration = max_trippin_duration;
+				playAudioClip(trippin_clip);
 			}
 		}
 	}
@@ -70,8 +78,8 @@ public class CharacterState : MonoBehaviour {
 			InvokeStateSender(OnHuffin, value);
 			if(value)
 			{
-				debug_message = "STARTED HUFFING";
 				huffin_duration = max_huffin_duration;
+				playAudioClip(huffin_clip);
 			}
 		}
 	}
@@ -99,6 +107,8 @@ public class CharacterState : MonoBehaviour {
 		max_trippin_duration = 60.0f;
 		max_huffin_duration = 60.0f;
 
+		gameObject.AddComponent<AudioSource>();
+
 		var left = (Screen.width - jar_tex.width - 5);
 		var right = (Screen.height - jar_tex.height - 5);
 		
@@ -123,6 +133,11 @@ public class CharacterState : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	void playAudioClip(AudioClip audio) {
+		gameObject.GetComponent<AudioSource>().PlayOneShot(audio);
+		//AudioSource.PlayClipAtPoint(audio, Camera.main.transform.position);
 	}
 
 	void use_jar()
@@ -183,50 +198,62 @@ public class CharacterState : MonoBehaviour {
 
 	void handle_durations ()
 	{
-		if (berried_duration > 0.0f) {
-			berried_duration -= Time.deltaTime;
+		if (Berried) {
+			if (berried_duration > 0.0f) {
+				berried_duration -= Time.deltaTime;
+			}
+			else {
+				Berried = false;
+			}
 		}
-		else {
-			Berried = false;
+
+		if (Huffin) {
+			if (huffin_duration > 0.0f) {
+				huffin_duration -= Time.deltaTime;
+			}
+			else {
+				Huffin = false;
+			}
 		}
-		if (huffin_duration > 0.0f) {
-			huffin_duration -= Time.deltaTime;
+
+		if (Trippin) {
+			if (trippin_duration > 0.0f) {
+				trippin_duration -= Time.deltaTime;
+			}
+			else {
+				Trippin = false;
+			}
 		}
-		else {
-			Huffin = false;
-		}
-		if (trippin_duration > 0.0f) {
-			trippin_duration -= Time.deltaTime;
-		}
-		else {
-			Trippin = false;
-		}
+
 	}
 	
 	void OnGUI()
 	{
-		GUILayout.BeginArea(new Rect(2, 2, 200, 400));
-		GUILayout.Label("Character State:");
-		if(is_trippin)
-			GUILayout.Label("TRIPPIN BAWLS");
-		if(is_huffin)
-			GUILayout.Label("HIGH");
-		if(is_berried)
-			GUILayout.Label("BERRIED");
-		if  (contents != "")
-			GUILayout.Label("Contents of jar: " + contents);
-		GUILayout.EndArea();
+		//GUILayout.BeginArea(new Rect(2, 2, 200, 400));
+		//GUILayout.Label("Character State:");
+		//if(is_trippin)
+		//	GUILayout.Label("TRIPPIN BAWLS");
+		//if(is_huffin)
+		//	GUILayout.Label("HIGH");
+		//if(is_berried)
+		//	GUILayout.Label("BERRIED");
+		//if  (contents != "")
+		//	GUILayout.Label("Contents of jar: " + contents);
+		//GUILayout.Label ("berry duration: " + berried_duration);
+		//GUILayout.Label ("huffin duration: " + huffin_duration);
+		//GUILayout.Label ("trippin duration: " + trippin_duration);
+		//GUILayout.EndArea();
 
 		
-		GUILayout.BeginArea(new Rect(210, 2, 200, 400));
-		GUILayout.Label(debug_message);
-		GUILayout.Label("berried_duration: " + berried_duration);
-		GUILayout.Label("huffin_duration: " + huffin_duration);
-		GUILayout.Label("trippin_duration: " + trippin_duration);
-		GUILayout.Label("max_berried_duration: " + max_berried_duration);
-		GUILayout.Label("max_huffin_duration: " + max_huffin_duration);
-		GUILayout.Label("max_trippin_duration: " + max_trippin_duration);
-		GUILayout.EndArea();
+		//GUILayout.BeginArea(new Rect(210, 2, 200, 400));
+		//GUILayout.Label(debug_message);
+		//GUILayout.Label("berried_duration: " + berried_duration);
+		//GUILayout.Label("huffin_duration: " + huffin_duration);
+		//GUILayout.Label("trippin_duration: " + trippin_duration);
+		//GUILayout.Label("max_berried_duration: " + max_berried_duration);
+		//GUILayout.Label("max_huffin_duration: " + max_huffin_duration);
+		//GUILayout.Label("max_trippin_duration: " + max_trippin_duration);
+		//GUILayout.EndArea();
 
 		if (current_tex != null)
 		{
@@ -245,5 +272,15 @@ public class CharacterState : MonoBehaviour {
 		{
 			handler(state);
 		}
+	}
+
+	public void perma_tripping()
+	{
+		max_berried_duration = 999999999.0f;
+		max_huffin_duration = 999999999.0f;
+		max_trippin_duration = 999999999.0f;
+		Huffin = true;
+		Trippin = true;
+		Berried = true;
 	}
 }

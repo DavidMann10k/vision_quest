@@ -12,7 +12,7 @@ public class Reticle : MonoBehaviour
 		var left = ((Screen.width - crosshairTexture.width) / 2);
 		var right = ((Screen.height - crosshairTexture.height) /2);
 
-		position = new Rect(left, right, crosshairTexture.width/2, crosshairTexture.height/2);
+		position = new Rect(left, right, crosshairTexture.width/1.5f, crosshairTexture.height/1.5f);
 		Screen.lockCursor = true;
 	}
 
@@ -25,13 +25,17 @@ public class Reticle : MonoBehaviour
 		//if (Input.GetKeyDown("escape"))
 		//	Screen.lockCursor = false;
 
-		if (Input.GetKey(KeyCode.Escape))
-			Screen.lockCursor = false;
-		else
-			Screen.lockCursor = true;
+//		if (Input.GetKey(KeyCode.Escape)) {
+//			Screen.lockCursor = false;
+//			Time.timeScale = 0;
+//		}
+//		else {
+//			Screen.lockCursor = true;
+//			Time.timeScale = 1;
+//		}
 	}
 
 	void OnMouseDown() {
-		Screen.lockCursor = true;
+		//Screen.lockCursor = true;
 	}
 }
