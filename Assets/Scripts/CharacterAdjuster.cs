@@ -32,19 +32,19 @@ public class CharacterAdjuster : MonoBehaviour {
 
 	void pump_up()
 	{
-		char_mot.movement.maxForwardSpeed = 20f;
-		char_mot.movement.maxSidewaysSpeed = 20f;
-		char_mot.movement.maxBackwardsSpeed = 20f;
+		char_mot.movement.maxForwardSpeed = 24f;
+		char_mot.movement.maxSidewaysSpeed = 24f;
+		char_mot.movement.maxBackwardsSpeed = 24f;
 
-		char_mot.jumping.baseHeight = 5f;
+		char_mot.jumping.baseHeight = 7f;
 	}
 
 	void cool_off()
 	{
-		char_mot.movement.maxForwardSpeed = 6f;
-		char_mot.movement.maxSidewaysSpeed = 6f;
-		char_mot.movement.maxBackwardsSpeed = 6f;
+		char_mot.movement.maxForwardSpeed = 12f;
+		char_mot.movement.maxSidewaysSpeed = 12f;
+		char_mot.movement.maxBackwardsSpeed = 9f;
 		
-		char_mot.jumping.baseHeight = 1f;
+		char_mot.jumping.baseHeight = 1.5f;
 	}
 }

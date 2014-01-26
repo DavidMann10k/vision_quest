@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ScentObject : MonoBehaviour {
@@ -7,10 +7,11 @@ public class ScentObject : MonoBehaviour {
 	void Start () {
 		var player = GameObject.Find("Player");
 		var state = player.GetComponent<CharacterState>();
-		state.OnHuffin += OnHuffin;
+		state.OnHuffin += MyOnHuffin;
+		gameObject.SetActive(false);
 	}
 
-	void OnHuffin(bool state)
+	void MyOnHuffin(bool state)
 	{
 		gameObject.SetActive(state);
 	}

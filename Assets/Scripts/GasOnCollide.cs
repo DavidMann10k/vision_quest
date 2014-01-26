@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GasOnCollide : MonoBehaviour {
@@ -11,7 +11,7 @@ public class GasOnCollide : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		//print ("ENTERING");
+		///print ("ENTERING");
 		//print (collider.gameObject.name);
 		if(collider.gameObject.name == "Player")
 		{

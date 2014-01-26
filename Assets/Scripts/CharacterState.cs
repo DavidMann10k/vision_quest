@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class CharacterState : MonoBehaviour {
+
+	public static string debug_message = "";
 	
 	public delegate void StateSender(bool state);
 	
@@ -40,7 +42,8 @@ public class CharacterState : MonoBehaviour {
 		set{
 			is_berried = value;
 			InvokeStateSender(OnBerried, value);
-			berried_duration = max_berried_duration;
+			if(value)
+				berried_duration = max_berried_duration;
 		}
 	}
 	public bool Trippin
@@ -51,7 +54,10 @@ public class CharacterState : MonoBehaviour {
 		set{
 			is_trippin = value;
 			InvokeStateSender(OnTrippin, value);
-			trippin_duration = max_trippin_duration;
+			if(value)
+			{
+				trippin_duration = max_trippin_duration;
+			}
 		}
 	}
 	public bool Huffin
@@ -62,7 +68,11 @@ public class CharacterState : MonoBehaviour {
 		set{
 			is_huffin = value;
 			InvokeStateSender(OnHuffin, value);
-			huffin_duration = max_huffin_duration;
+			if(value)
+			{
+				debug_message = "STARTED HUFFING";
+				huffin_duration = max_huffin_duration;
+			}
 		}
 	}
 	public bool Jar
@@ -85,6 +95,10 @@ public class CharacterState : MonoBehaviour {
 	
 	void Start()
 	{
+		max_berried_duration = 60.0f;
+		max_trippin_duration = 60.0f;
+		max_huffin_duration = 60.0f;
+
 		var left = (Screen.width - jar_tex.width - 5);
 		var right = (Screen.height - jar_tex.height - 5);
 		
@@ -202,7 +216,18 @@ public class CharacterState : MonoBehaviour {
 		if  (contents != "")
 			GUILayout.Label("Contents of jar: " + contents);
 		GUILayout.EndArea();
+
 		
+		GUILayout.BeginArea(new Rect(210, 2, 200, 400));
+		GUILayout.Label(debug_message);
+		GUILayout.Label("berried_duration: " + berried_duration);
+		GUILayout.Label("huffin_duration: " + huffin_duration);
+		GUILayout.Label("trippin_duration: " + trippin_duration);
+		GUILayout.Label("max_berried_duration: " + max_berried_duration);
+		GUILayout.Label("max_huffin_duration: " + max_huffin_duration);
+		GUILayout.Label("max_trippin_duration: " + max_trippin_duration);
+		GUILayout.EndArea();
+
 		if (current_tex != null)
 		{
 			GUI.DrawTexture(position, current_tex);
