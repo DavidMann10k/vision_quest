@@ -1,4 +1,4 @@
-﻿Shader "Cg  shader for billboards" {
+Shader "Cg  shader for billboards" {
    Properties {
       _MainTex ("Texture Image", 2D) = "white" {}
    }
