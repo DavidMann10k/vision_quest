@@ -21,6 +21,10 @@ public class CharacterState : MonoBehaviour {
 	public float berried_duration = 0.0f;
 	public float trippin_duration = 0.0f;
 	public float huffin_duration = 0.0f;
+
+	public AudioClip berried_clip;
+	public AudioClip trippin_clip;
+	public AudioClip huffin_clip;
 	
 	public Rect position;
 	public Texture2D jar_tex;
@@ -41,6 +45,9 @@ public class CharacterState : MonoBehaviour {
 			is_berried = value;
 			InvokeStateSender(OnBerried, value);
 			berried_duration = max_berried_duration;
+			if (is_berried) {
+				playAudioClip(berried_clip);
+			}
 		}
 	}
 	public bool Trippin
@@ -52,6 +59,9 @@ public class CharacterState : MonoBehaviour {
 			is_trippin = value;
 			InvokeStateSender(OnTrippin, value);
 			trippin_duration = max_trippin_duration;
+			if (is_trippin) {
+				playAudioClip(trippin_clip);
+			}
 		}
 	}
 	public bool Huffin
@@ -63,6 +73,9 @@ public class CharacterState : MonoBehaviour {
 			is_huffin = value;
 			InvokeStateSender(OnHuffin, value);
 			huffin_duration = max_huffin_duration;
+			if (is_huffin) {
+				playAudioClip(huffin_clip);
+			}
 		}
 	}
 	public bool Jar
@@ -85,6 +98,12 @@ public class CharacterState : MonoBehaviour {
 	
 	void Start()
 	{
+		max_berried_duration = 5.0f;
+		max_trippin_duration = 5.0f;
+		max_huffin_duration = 5.0f;
+
+		gameObject.AddComponent<AudioSource>();
+
 		var left = (Screen.width - jar_tex.width - 5);
 		var right = (Screen.height - jar_tex.height - 5);
 		
@@ -109,6 +128,11 @@ public class CharacterState : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	void playAudioClip(AudioClip audio) {
+		gameObject.GetComponent<AudioSource>().PlayOneShot(audio);
+		//AudioSource.PlayClipAtPoint(audio, Camera.main.transform.position);
 	}
 
 	void use_jar()
@@ -169,24 +193,33 @@ public class CharacterState : MonoBehaviour {
 
 	void handle_durations ()
 	{
-		if (berried_duration > 0.0f) {
-			berried_duration -= Time.deltaTime;
+		if (Berried) {
+			if (berried_duration > 0.0f) {
+				berried_duration -= Time.deltaTime;
+			}
+			else {
+				Berried = false;
+			}
 		}
-		else {
-			Berried = false;
+
+		if (Huffin) {
+			if (huffin_duration > 0.0f) {
+				huffin_duration -= Time.deltaTime;
+			}
+			else {
+				Huffin = false;
+			}
 		}
-		if (huffin_duration > 0.0f) {
-			huffin_duration -= Time.deltaTime;
+
+		if (Trippin) {
+			if (trippin_duration > 0.0f) {
+				trippin_duration -= Time.deltaTime;
+			}
+			else {
+				Trippin = false;
+			}
 		}
-		else {
-			Huffin = false;
-		}
-		if (trippin_duration > 0.0f) {
-			trippin_duration -= Time.deltaTime;
-		}
-		else {
-			Trippin = false;
-		}
+
 	}
 	
 	void OnGUI()
@@ -201,6 +234,9 @@ public class CharacterState : MonoBehaviour {
 			GUILayout.Label("BERRIED");
 		if  (contents != "")
 			GUILayout.Label("Contents of jar: " + contents);
+		GUILayout.Label ("berry duration: " + berried_duration);
+		GUILayout.Label ("huffin duration: " + huffin_duration);
+		GUILayout.Label ("trippin duration: " + trippin_duration);
 		GUILayout.EndArea();
 		
 		if (current_tex != null)

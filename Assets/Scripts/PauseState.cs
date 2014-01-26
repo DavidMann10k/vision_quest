@@ -13,7 +13,7 @@ public class PauseState : MonoBehaviour {
 	}
 
 	private Rect PauseMenu = new Rect((Screen.width - 200) / 2, (Screen.height - 100) / 2, 200, 100);
-	private Rect CreditWindow = new Rect((Screen.width - 180) / 2, (Screen.height - 200) / 2, 180, 240);
+	private Rect CreditWindow = new Rect((Screen.width - 180) / 2, (Screen.height - 270) / 2, 180, 270);
 	// Use this for initialization
 	void Start () {
 		is_paused = false;
@@ -69,7 +69,8 @@ public class PauseState : MonoBehaviour {
 		GUI.Label(new Rect(20, 100, 140, 25), "David Mann", centeredStyle);
 		GUI.Label(new Rect(20, 130, 140, 25), "Corey Van Meekeren", centeredStyle);
 		GUI.Label(new Rect(20, 160, 140, 25), "Heidi Neibert", centeredStyle);
-		if (GUI.Button (new Rect(20, 190, 140, 25), "Back")) {
+		GUI.Label(new Rect(20, 190, 140, 25), "Darren Prentice", centeredStyle);
+		if (GUI.Button (new Rect(20, 220, 140, 25), "Back")) {
 			show_credits = false;
 		}
 	}
