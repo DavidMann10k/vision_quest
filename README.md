@@ -1,16 +1,16 @@
-vision_quest - Finally named Vision Saga
+Vision Saga
 ============
 
 This is a project created in 48 hours for the Global Game Jam 2014.
 
 The team responsible included:
 
-Matthew Hagen
-Nick Malbraaten
-David Mann
-Corey Van
-Heidi Neibert
-Darren Prentice
+* Matthew Hagen
+* Nick Malbraaten
+* David Mann
+* Corey Van
+* Heidi Neibert
+* Darren Prentice
 
 Our most sincere thanks to our host and sponsor, The Nerdery, the Global Game Jam organizers, and the Twin Cities chapter of the IDGA.
 
