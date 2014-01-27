@@ -15,7 +15,6 @@ public class Jar : MonoBehaviour {
 	
 	void OnClick()
 	{
-		print ("jar onclick!");
 		var player = GameObject.Find("Player");
 		var state = player.GetComponent<CharacterState>();
 		state.Jar = true;

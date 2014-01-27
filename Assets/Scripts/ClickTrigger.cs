@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ClickTrigger : MonoBehaviour {
 
-	SphereCollider collider;
+	//SphereCollider remote_collider;
 	public Texture2D tex;
 	Rect position;
 
@@ -11,7 +11,7 @@ public class ClickTrigger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		collider = gameObject.GetComponent<SphereCollider>();
+		//remote_collider = gameObject.GetComponent<SphereCollider>();
 		
 		var left = ((Screen.width - tex.width) / 2);
 		var right = ((Screen.height - tex.height) /2 +100);

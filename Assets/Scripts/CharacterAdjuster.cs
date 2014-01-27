@@ -5,7 +5,7 @@ public class CharacterAdjuster : MonoBehaviour {
 
 	CharacterMotor char_mot;
 
-	bool is_berried;
+	//bool is_berried;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +23,7 @@ public class CharacterAdjuster : MonoBehaviour {
 
 	void OnBerried(bool state)
 	{
-		is_berried = state;
+		//is_berried = state;
 		if (state)
 			pump_up();
 		else

@@ -3,11 +3,11 @@ using System.Collections;
 
 public class GasOnCollide : MonoBehaviour {
 
-	SphereCollider collider;
+	//SphereCollider remote_collider;
 
 	// Use this for initialization
 	void Start () {
-		collider = gameObject.GetComponent<SphereCollider>();
+		//remote_collider = gameObject.GetComponent<SphereCollider>();
 	}
 
 	void OnTriggerEnter(Collider collider) {
