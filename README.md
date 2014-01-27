@@ -8,7 +8,7 @@ The team responsible included:
 * Matthew Hagen
 * Nick Malbraaten
 * David Mann
-* Corey Van
+* Corey Van Meekeran
 * Heidi Neibert
 * Darren Prentice
 
