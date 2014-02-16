@@ -8,12 +8,18 @@ public class VisionAdjuster: MonoBehaviour {
 	public Color TrippinBackgroundColor;
 	public float NormalFieldOfView;
 	public float TrippinFieldOfView;
+	// Skybox Materials for sky tripping effect - Corey Test
+	public Material[] skyboxList;
+	public float changeInterval = 0.33F;
 
 	private CharacterState state;
 	// Use this for initialization
 	void Start () {
 		var player = GameObject.Find("Player");
 		state = player.GetComponent<CharacterState>();
+
+
+
 	}
 
 	// Update is called once per frame
@@ -23,14 +29,24 @@ public class VisionAdjuster: MonoBehaviour {
 			float deltaTime = Time.deltaTime;
 			Camera.main.backgroundColor = Color.Lerp (Camera.main.backgroundColor, TrippinBackgroundColor, deltaTime);
 			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, TrippinFieldOfView, deltaTime);
+
+			//Cycle skyboxes - Corey test code
+			int index = Convert.ToInt32(Time.time / changeInterval);
+			index = index % skyboxList.Length;
+			RenderSettings.skybox = skyboxList[index];
+			//End Corey test code
+
 		} else if (Camera.main.backgroundColor != NormalBackgroundColor) {
 			// go back to normal color and FOV
 			float deltaTime = Time.deltaTime;
 			Camera.main.backgroundColor = Color.Lerp (Camera.main.backgroundColor, NormalBackgroundColor, deltaTime);
 			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, NormalFieldOfView, deltaTime);
-			
+
+
+
+			}			
 		} 
 	}
 
-}
+
 
