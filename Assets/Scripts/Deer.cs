@@ -36,11 +36,13 @@ public class Deer : MonoBehaviour {
 	bool disappearing = false;
 
 	Renderer rend;
+	float alphaCutoff = 0.0f;
 
 	void Start()
 	{
 		rend = gameObject.GetComponentInChildren<Renderer>();
-		end_color = new Color(rend.material.color.r, rend.material.color.b, rend.material.color.g, 0.0f);
+		//end_color = new Color(rend.material.color.r, rend.material.color.b, rend.material.color.g, 0.0f);
+		rend.material.SetFloat ("_Cutoff", 0.0f);
 
 	}
 
@@ -48,7 +50,8 @@ public class Deer : MonoBehaviour {
 	{
 		if(disappearing)
 		{
-			rend.material.color = Color.Lerp (rend.material.color, end_color, Time.deltaTime);
+			//rend.material.color = Color.Lerp (rend.material.color, end_color, Time.deltaTime);
+			rend.material.SetFloat ("_Cutoff", Mathf.Lerp (0.0f, 1.0f, alphaCutoff += (Time.deltaTime * 0.25f)));
 		}
 	}
 

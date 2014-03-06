@@ -4,49 +4,54 @@ using System;
 
 public class VisionAdjuster: MonoBehaviour {
 
-	public Color NormalBackgroundColor;
+	Color NormalBackgroundColor;
 	public Color TrippinBackgroundColor;
+	public Color NotTrippinBackgroundColor = Color.black;
 	public float NormalFieldOfView;
 	public float TrippinFieldOfView;
-	// Skybox Materials for sky tripping effect - Corey Test
-	public Material[] skyboxList;
-	public float changeInterval = 0.33F;
+	public float NormalSpeed = 1.0f;
+	public float HighSpeed = 40.0f;
 
+	private GameObject worldCenter;
+	private DayCycle dayCycle;
 	private CharacterState state;
-	// Use this for initialization
-	void Start () {
+	private Light sunLight;
+	
+	void Start(){
+		sunLight = GameObject.Find("SunLight").GetComponent<Light> ();
 		var player = GameObject.Find("Player");
 		state = player.GetComponent<CharacterState>();
-
-
-
+		worldCenter = GameObject.Find ("WorldCenter");
+		dayCycle = worldCenter.GetComponent<DayCycle> ();
 	}
 
-	// Update is called once per frame
+
 	void Update () {
-		if (state.Trippin && Camera.main.backgroundColor != TrippinBackgroundColor) {
-			// go to crazy skybox color and FOV
-			float deltaTime = Time.deltaTime;
-			Camera.main.backgroundColor = Color.Lerp (Camera.main.backgroundColor, TrippinBackgroundColor, deltaTime);
-			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, TrippinFieldOfView, deltaTime);
 
-			//Cycle skyboxes - Corey test code
-			int index = Convert.ToInt32(Time.time / changeInterval);
-			index = index % skyboxList.Length;
-			RenderSettings.skybox = skyboxList[index];
-			//End Corey test code
+		if (state.Trippin && Camera.main.fieldOfView != TrippinFieldOfView) {
+			// go to crazy FOV
+			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, TrippinFieldOfView, Time.deltaTime);
+			//speed up DayCycle
+			dayCycle.TargetSpeed = HighSpeed;
+			dayCycle.TrippinColor = TrippinBackgroundColor;
+			Camera.main.clearFlags = CameraClearFlags.Depth;
 
-		} else if (Camera.main.backgroundColor != NormalBackgroundColor) {
-			// go back to normal color and FOV
-			float deltaTime = Time.deltaTime;
-			Camera.main.backgroundColor = Color.Lerp (Camera.main.backgroundColor, NormalBackgroundColor, deltaTime);
-			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, NormalFieldOfView, deltaTime);
+		} else if (Camera.main.fieldOfView != NormalFieldOfView) {
+			// go back to normal FOV
+			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, NormalFieldOfView, Time.deltaTime);
+			//restore normal daycycle
+			dayCycle.TargetSpeed = NormalSpeed;
+			dayCycle.TrippinColor = NotTrippinBackgroundColor;
+			Camera.main.clearFlags = CameraClearFlags.Color;
+			}
 
-
-
-			}			
-		} 
-	}
+		if (state.Huffin) {
+			sunLight.intensity = Mathf.Lerp (sunLight.intensity, 0.3f, Time.deltaTime);
+		}else {
+			sunLight.intensity = Mathf.Lerp (sunLight.intensity, 1.0f, Time.deltaTime);
+		}
+	} 
+}
 
 
 

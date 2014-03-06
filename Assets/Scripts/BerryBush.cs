@@ -7,7 +7,8 @@ public class BerryBush : MonoBehaviour {
 	{
 		var player = GameObject.Find("Player");
 		var state = player.GetComponent<CharacterState>();
+
 		state.Berried = true;
-		Destroy (gameObject);
+		gameObject.SetActive (false);
 	}
 }

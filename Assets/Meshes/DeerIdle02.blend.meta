@@ -50,6 +50,7 @@ ModelImporter:
     4300000: Deer
     7400000: Default Take
     7400002: ArmatureAction
+    7400004: LookUpAnim
     9500000: //RootNode
     13700000: Deer
   materials:
@@ -60,13 +61,83 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: LookUpAnim
+      takeName: LookUpAnim
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/hips
+        weight: 1
+      - path: Armature/hips/spine
+        weight: 1
+      - path: Armature/hips/spine/ribs
+        weight: 1
+      - path: Armature/hips/spine/ribs/neck
+        weight: 1
+      - path: Armature/hips/spine/ribs/neck/head
+        weight: 1
+      - path: Armature/hips/spine/ribs/shoulder_L
+        weight: 1
+      - path: Armature/hips/spine/ribs/shoulder_L/upper_arm_L
+        weight: 1
+      - path: Armature/hips/spine/ribs/shoulder_L/upper_arm_L/forearm_L
+        weight: 1
+      - path: Armature/hips/spine/ribs/shoulder_L/upper_arm_L/forearm_L/hand_L
+        weight: 1
+      - path: Armature/hips/spine/ribs/shoulder_R
+        weight: 1
+      - path: Armature/hips/spine/ribs/shoulder_R/upper_arm_R
+        weight: 1
+      - path: Armature/hips/spine/ribs/shoulder_R/upper_arm_R/forearm_R
+        weight: 1
+      - path: Armature/hips/spine/ribs/shoulder_R/upper_arm_R/forearm_R/hand_R
+        weight: 1
+      - path: Armature/hips/thigh_L
+        weight: 1
+      - path: Armature/hips/thigh_L/shin_L
+        weight: 1
+      - path: Armature/hips/thigh_L/shin_L/foot_L
+        weight: 1
+      - path: Armature/hips/thigh_R
+        weight: 1
+      - path: Armature/hips/thigh_R/shin_R
+        weight: 1
+      - path: Armature/hips/thigh_R/shin_R/foot_R
+        weight: 1
+      - path: Deer
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
