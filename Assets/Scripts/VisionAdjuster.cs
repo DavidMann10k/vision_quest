@@ -16,6 +16,7 @@ public class VisionAdjuster: MonoBehaviour {
 	private DayCycle dayCycle;
 	private CharacterState state;
 	private Light sunLight;
+	private Camera FXCam;
 	
 	void Start(){
 		sunLight = GameObject.Find("SunLight").GetComponent<Light> ();
@@ -23,6 +24,7 @@ public class VisionAdjuster: MonoBehaviour {
 		state = player.GetComponent<CharacterState>();
 		worldCenter = GameObject.Find ("WorldCenter");
 		dayCycle = worldCenter.GetComponent<DayCycle> ();
+		FXCam = GameObject.Find ("FXCamera").camera;
 	}
 
 
@@ -34,7 +36,7 @@ public class VisionAdjuster: MonoBehaviour {
 			//speed up DayCycle
 			dayCycle.TargetSpeed = HighSpeed;
 			dayCycle.TrippinColor = TrippinBackgroundColor;
-			Camera.main.clearFlags = CameraClearFlags.Depth;
+			FXCam.clearFlags = CameraClearFlags.Depth;
 
 		} else if (Camera.main.fieldOfView != NormalFieldOfView) {
 			// go back to normal FOV
@@ -42,7 +44,7 @@ public class VisionAdjuster: MonoBehaviour {
 			//restore normal daycycle
 			dayCycle.TargetSpeed = NormalSpeed;
 			dayCycle.TrippinColor = NotTrippinBackgroundColor;
-			Camera.main.clearFlags = CameraClearFlags.Color;
+			FXCam.clearFlags = CameraClearFlags.Color;
 			}
 
 		if (state.Huffin) {
